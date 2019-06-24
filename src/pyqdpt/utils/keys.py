@@ -1,10 +1,9 @@
 import os
 
-
-cert, key, device_id = dpt.register()
-owner = dpt.get_owner()
-info = dpt.get_info()
-serial = info['serial_number']
+# cert, key, device_id = dpt.register()
+# owner = dpt.get_owner()
+# info = dpt.get_info()
+# serial = info['serial_number']
 
 
 def save_key(cert, key, device_id, serial, owner, save_path='~/.config/qdpt'):
@@ -23,12 +22,14 @@ def save_key(cert, key, device_id, serial, owner, save_path='~/.config/qdpt'):
 def load_keys(save_path='~/.config/qdpt/devices'):
     save_path = os.path.expanduser(save_path)
     key_paths = os.listdir(save_path)
-    keys = dict()
+    key_paths.sort(key=lambda x: os.path.getctime(os.path.join(save_path, x)))
+    keys = list()
     for device_id in key_paths:
         key_data = dict()
+        key_data['device_id'] = device_id
         for name in ('cert', 'key', 'owner', 'serial'):
             with open(os.path.join(save_path, device_id, name)) as f:
                 value = '\n'.join(f.readlines())
             key_data[name] = value
-        keys[device_id] = key_data
+        keys.append(key_data)
     return keys
