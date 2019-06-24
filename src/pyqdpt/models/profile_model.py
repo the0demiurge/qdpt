@@ -10,7 +10,7 @@ class ProfileModel(QStringListModel):
             self.keys = keys
         super(ProfileModel, self).__init__([self.getDescription(data) for data in self.keys])
 
-    def appendData(self, cert, key, device_id, serial, owner):
+    def appendItem(self, cert, key, device_id, serial, owner):
         existed = self.appendKey(cert, key, device_id, serial, owner)
         if existed:
             row = self._getindex(device_id, by='device_id')
@@ -19,7 +19,7 @@ class ProfileModel(QStringListModel):
             self.insertRow(row)
         self.setData(self.index(row), self.getDescription(self.keys[row]))
 
-    def deleteData(self, key, by='serial'):
+    def deleteItem(self, key, by='serial'):
         self.removeRow(self._getindex(key, by))
         self.delKey(key, by)
 

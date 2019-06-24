@@ -48,9 +48,9 @@ class listview(QWidget):
     def appendKey(self, ):
         string, isOK = QInputDialog.getText(self, 'Code', ' '.join(['cert', 'key', 'device_id', 'serial', 'owner']))
         if isOK:
-            self.mdl.appendData(*string.split())
+            self.mdl.appendItem(*string.split())
         else:
-            self.mdl.appendData('cert', 'key', 'device_id', 'serial', 'owner')
+            self.mdl.appendItem('cert', 'key', 'device_id', 'serial', 'owner')
         self.delbtn.setDisabled(len(self.mdl) == 0)
 
     def deleteKey(self):
@@ -59,7 +59,7 @@ class listview(QWidget):
         answer = QMessageBox.warning(self, "Confirmation", "Delete Key <b>{}</b>?".format(info), QMessageBox.No | QMessageBox.Yes, QMessageBox.No)
         # answer = QMessageBox.question(self, "Confirmation", "Delete Key <b>{}</b>?".format(info))
         if answer == QMessageBox.Yes:
-            self.mdl.deleteData(row, by='index')
+            self.mdl.deleteItem(row, by='index')
         self.delbtn.setDisabled(len(self.mdl) == 0)
 
     def modifyData(self, data):
