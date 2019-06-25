@@ -1,6 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel
+
 from pyqdpt.utils import keys
+from pyqdpt.utils.errors import ErrorBox
 
 
 class ProfileTableModel(QStandardItemModel):
@@ -42,7 +44,7 @@ class ProfileTableModel(QStandardItemModel):
             'owner': owner,
         }
         if existed:
-            self.keys[self._getindex(device_id, by='device_id')] = value
+            self.keys[self._getindex(serial, by='serial')] = value
         else:
             self.keys.append(value)
         return existed
@@ -52,7 +54,7 @@ class ProfileTableModel(QStandardItemModel):
 
     def delKey(self, key, by='serial'):
         deleted_key = self.keys.pop(self._getindex(key, by))
-        keys.remove_key(deleted_key['device_id'])
+        keys.remove_key(deleted_key['serial'])
 
     def _getindex(self, key, by):
         if by == 'index':
@@ -61,6 +63,7 @@ class ProfileTableModel(QStandardItemModel):
             for index, item in enumerate(self.keys):
                 if item.get(by) == key:
                     return index
+        ErrorBox('Error in finding index', 'key={}<br>by={}'.format(key, by)).exec()
 
     def getDescription(self, data):
         return ': '.join((data.get('owner'), data.get('serial')))

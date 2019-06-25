@@ -1,6 +1,4 @@
-import sys
-
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from pyqdpt import utils
 from pyqdpt.models.profile_model import ProfileTableModel
@@ -52,7 +50,9 @@ class ProfileWindow(QMainWindow):
         self.ui.switchButton.setDisabled(self.dataModel.rowCount() == 0)
 
 
-app = QApplication(sys.argv)
-profilewindow = ProfileWindow(keys=utils.keys.load_keys())
-profilewindow.show()
-app.exec_()
+if __name__ == "__main__":
+    from PyQt5.QtWidgets import QApplication
+    app = QApplication([])
+    profilewindow = ProfileWindow(keys=utils.keys.load_keys())
+    profilewindow.show()
+    app.exec_()

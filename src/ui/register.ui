@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Manual Add</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../assets/icon.png</normaloff>../../assets/icon.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="1" column="0" colspan="5">
     <widget class="QGroupBox" name="groupBox_2">
@@ -186,7 +190,7 @@
    <item row="3" column="3">
     <widget class="QPushButton" name="scanButton">
      <property name="text">
-      <string>Scan</string>
+      <string>Auto Add</string>
      </property>
     </widget>
    </item>
