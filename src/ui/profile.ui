@@ -1,51 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>ProfileWindow</class>
+ <widget class="QMainWindow" name="ProfileWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>285</width>
-    <height>349</height>
+    <width>324</width>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Register Device</string>
+   <string>Switch Digital Paper</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0" colspan="3">
-     <widget class="QTableWidget" name="devicesWidget"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="openButton">
-      <property name="enabled">
+    <item row="1" column="0" colspan="5">
+     <widget class="QTableView" name="devicesView">
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="showGrid">
        <bool>false</bool>
       </property>
-      <property name="text">
-       <string>Open</string>
+      <property name="cornerButtonEnabled">
+       <bool>false</bool>
       </property>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QToolButton" name="toolButton">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Add New</string>
-      </property>
-      <property name="toolButtonStyle">
-       <enum>Qt::ToolButtonTextBesideIcon</enum>
-      </property>
-      <property name="arrowType">
-       <enum>Qt::DownArrow</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="DeleteButton">
+     <widget class="QPushButton" name="deleteButton">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -54,33 +47,44 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="3">
-     <widget class="QLabel" name="label">
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
+    <item row="2" column="4">
+     <widget class="QPushButton" name="switchButton">
+      <property name="enabled">
+       <bool>false</bool>
       </property>
       <property name="text">
-       <string>Registered Devices</string>
+       <string>Switch</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="addButton">
+      <property name="text">
+       <string>Add New</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;b&gt;Please select Digital Paper.&lt;/b&gt;&lt;br&gt;You can get device ID from&lt;br&gt;[Settings] - [About This Device] - [Device Details].&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>285</width>
-     <height>23</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <resources/>

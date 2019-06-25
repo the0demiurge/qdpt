@@ -10,8 +10,8 @@ class ProfileTableModel(QStandardItemModel):
         else:
             self.keys = keys
         super(ProfileTableModel, self).__init__(len(self.keys), 2, parent)
-        self.setHeaderData(0, Qt.Horizontal, 'owner')
-        self.setHeaderData(1, Qt.Horizontal, 'serial')
+        self.setHeaderData(0, Qt.Horizontal, 'Owner')
+        self.setHeaderData(1, Qt.Horizontal, 'Device ID')
         for row, key in enumerate(self.keys):
             self.setRowData(row, key)
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ManualDialog</class>
- <widget class="QDialog" name="ManualDialog">
+ <class>RegistDialog</class>
+ <widget class="QDialog" name="RegistDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
+    <width>409</width>
     <height>339</height>
    </rect>
   </property>
@@ -20,58 +20,7 @@
    <string>Manual Add</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
-   <item row="0" column="0" colspan="3">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Start Digital Paper USB Network for register</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>dev:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="2">
-       <widget class="QLineEdit" name="devInput">
-        <property name="text">
-         <string>/dev/ttyACM0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Method:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="methodBox">
-        <item>
-         <property name="text">
-          <string>CEC/ECM</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>RNDIS</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="startButton">
-        <property name="text">
-         <string>Start</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="3">
+   <item row="1" column="0" colspan="5">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
       <string>Register information</string>
@@ -87,7 +36,10 @@
       <item row="1" column="1">
        <widget class="QLineEdit" name="ifaceInput">
         <property name="text">
-         <string>enp0s20u2</string>
+         <string notr="true"/>
+        </property>
+        <property name="placeholderText">
+         <string notr="true">enp0s20u2</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
@@ -111,7 +63,10 @@
       <item row="0" column="1" colspan="2">
        <widget class="QLineEdit" name="ipInput">
         <property name="text">
-         <string>fe80::ec9e:e1ff:fe26:5ae3</string>
+         <string notr="true"/>
+        </property>
+        <property name="placeholderText">
+         <string notr="true">fe80::ec9e:e1ff:fe26:5ae3</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
@@ -121,14 +76,21 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3">
+   <item row="2" column="0" colspan="5">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
       <string>Authencation Code:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QLineEdit" name="codeInput"/>
+       <widget class="QLineEdit" name="codeInput">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="placeholderText">
+         <string notr="true">123456789</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1">
        <widget class="QPushButton" name="codeButton">
@@ -147,7 +109,68 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="0" column="0" colspan="5">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Start Digital Paper USB Network for register</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>dev:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QLineEdit" name="devInput">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="placeholderText">
+         <string notr="true">/dev/ttyACM0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Method:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="methodBox">
+        <item>
+         <property name="text">
+          <string>CDC/ECM</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>RNDIS</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="startButton">
+        <property name="text">
+         <string>Start</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QPushButton" name="closeButton">
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -160,10 +183,10 @@
      </property>
     </spacer>
    </item>
-   <item row="3" column="2">
-    <widget class="QPushButton" name="closeButton">
+   <item row="3" column="3">
+    <widget class="QPushButton" name="scanButton">
      <property name="text">
-      <string>Close</string>
+      <string>Scan</string>
      </property>
     </widget>
    </item>
@@ -186,7 +209,7 @@
   <connection>
    <sender>closeButton</sender>
    <signal>clicked()</signal>
-   <receiver>ManualDialog</receiver>
+   <receiver>RegistDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
