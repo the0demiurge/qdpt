@@ -1,9 +1,9 @@
 from pyqdpt import utils
-from pyqdpt.models.profile_model import ProfileModel
+from pyqdpt.models.profile_model import ProfileModel, ProfileTableModel
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import QStringListModel
-from PyQt5.QtWidgets import QApplication, QWidget, QListView, QAbstractItemView, QInputDialog, QLineEdit, QMessageBox, QGridLayout, QPushButton
+from PyQt5.QtCore import QStringListModel, Qt
+from PyQt5.QtWidgets import QApplication, QWidget, QListView, QAbstractItemView, QInputDialog, QLineEdit, QMessageBox, QGridLayout, QPushButton, QTreeView
 import sys
 
 
@@ -27,14 +27,14 @@ class listview(QWidget):
     def __init__(self):
         super(listview, self).__init__()
         self.mainlayout = QGridLayout()
-        self.lv = QListView(self)
+        self.lv = QTableView(self)
         self.insbtn = QPushButton('insert')
         self.delbtn = QPushButton('delete')
         self.mainlayout.addWidget(self.insbtn, 1, 0)
         self.mainlayout.addWidget(self.delbtn, 1, 1)
         self.mainlayout.addWidget(self.lv, 0, 0)
         self.list_data = list('aoeuaoeu')
-        self.mdl = pm
+        self.mdl = ProfileTableModel(self.lv, k)
         self.lv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.lv.setModel(self.mdl)
         self.lv.doubleClicked.connect(self.insertData)
@@ -42,7 +42,7 @@ class listview(QWidget):
         # self.lv.clicked.connect(self.deleteKey)
         self.insbtn.clicked.connect(self.appendKey)
         self.delbtn.clicked.connect(self.deleteKey)
-        self.delbtn.setDisabled(len(self.mdl) == 0)
+        self.delbtn.setDisabled(self.mdl.rowCount() == 0)
         self.setLayout(self.mainlayout)
 
     def appendKey(self, ):
@@ -51,7 +51,7 @@ class listview(QWidget):
             self.mdl.appendItem(*string.split())
         else:
             self.mdl.appendItem('cert', 'key', 'device_id', 'serial', 'owner')
-        self.delbtn.setDisabled(len(self.mdl) == 0)
+        self.delbtn.setDisabled(self.mdl.rowCount() == 0)
 
     def deleteKey(self):
         row = self.lv.currentIndex().row()
@@ -60,7 +60,7 @@ class listview(QWidget):
         # answer = QMessageBox.question(self, "Confirmation", "Delete Key <b>{}</b>?".format(info))
         if answer == QMessageBox.Yes:
             self.mdl.deleteItem(row, by='index')
-        self.delbtn.setDisabled(len(self.mdl) == 0)
+        self.delbtn.setDisabled(self.mdl.rowCount() == 0)
 
     def modifyData(self, data):
         curidx = self.lv.currentIndex()
