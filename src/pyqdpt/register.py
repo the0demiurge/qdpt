@@ -111,6 +111,11 @@ class RegisterDialog(QDialog):
             ).exec()
             self.ui.requestButton.setEnabled(True)
             return
+        QMessageBox.information(
+            self,
+            'Code',
+            'Please put in the authentication code downside',
+        )
         self.ui.requestButton.setEnabled(True)
 
     def auth(self):

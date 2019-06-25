@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Manual Add</string>
+   <string>Register Device</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../assets/assets.qrc">

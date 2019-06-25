@@ -73,158 +73,157 @@ class DigitalPaper():
             - priv_key: a PEM-encoded 2048-bit RSA private key
             - client_id: the client id
         """
-        while True:
-            reg_url = "http://{addr}:8080".format(addr=self.addr)
-            register_pin_url = '{base_url}/register/pin'.format(base_url=reg_url)
-            register_hash_url = '{base_url}/register/hash'.format(base_url=reg_url)
-            register_ca_url = '{base_url}/register/ca'.format(base_url=reg_url)
-            register_url = '{base_url}/register'.format(base_url=reg_url)
-            register_cleanup_url = '{base_url}/register/cleanup'.format(base_url=reg_url)
+        reg_url = "http://{addr}:8080".format(addr=self.addr)
+        register_pin_url = '{base_url}/register/pin'.format(base_url=reg_url)
+        register_hash_url = '{base_url}/register/hash'.format(base_url=reg_url)
+        register_ca_url = '{base_url}/register/ca'.format(base_url=reg_url)
+        register_url = '{base_url}/register'.format(base_url=reg_url)
+        register_cleanup_url = '{base_url}/register/cleanup'.format(base_url=reg_url)
 
-            print("Cleaning up...")
-            r = requests.put(register_cleanup_url, verify=False)
-            print(r)
+        print("Cleaning up...")
+        r = requests.put(register_cleanup_url, verify=False)
+        print(r)
 
-            print("Requesting PIN...")
-            r = requests.post(register_pin_url, verify=False)
-            print(r)
-            m1 = r.json()
+        print("Requesting PIN...")
+        r = requests.post(register_pin_url, verify=False)
+        print(r)
+        m1 = r.json()
 
-            n1 = base64.b64decode(m1['a'])
-            mac = base64.b64decode(m1['b'])
-            yb = base64.b64decode(m1['c'])
-            yb = int.from_bytes(yb, 'big')
-            n2 = os.urandom(16)  # random nonce
+        n1 = base64.b64decode(m1['a'])
+        mac = base64.b64decode(m1['b'])
+        yb = base64.b64decode(m1['c'])
+        yb = int.from_bytes(yb, 'big')
+        n2 = os.urandom(16)  # random nonce
 
-            dh = DiffieHellman()
-            ya = dh.gen_public_key()
-            ya = b'\x00' + ya.to_bytes(256, 'big')
+        dh = DiffieHellman()
+        ya = dh.gen_public_key()
+        ya = b'\x00' + ya.to_bytes(256, 'big')
 
-            zz = dh.gen_shared_key(yb)
-            zz = zz.to_bytes(256, 'big')
-            yb = yb.to_bytes(256, 'big')
+        zz = dh.gen_shared_key(yb)
+        zz = zz.to_bytes(256, 'big')
+        yb = yb.to_bytes(256, 'big')
 
-            derivedKey = PBKDF2(passphrase=zz,
-                                salt=n1 + mac + n2,
-                                iterations=10000,
-                                digestmodule=SHA256).read(48)
+        derivedKey = PBKDF2(passphrase=zz,
+                            salt=n1 + mac + n2,
+                            iterations=10000,
+                            digestmodule=SHA256).read(48)
 
-            authKey = derivedKey[:32]
-            keyWrapKey = derivedKey[32:]
+        authKey = derivedKey[:32]
+        keyWrapKey = derivedKey[32:]
 
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(n1 + mac + yb + n1 + n2 + mac + ya)
-            m2hmac = hmac.digest()
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(n1 + mac + yb + n1 + n2 + mac + ya)
+        m2hmac = hmac.digest()
 
-            m2 = dict(a=base64.b64encode(n1).decode('utf-8'),
-                      b=base64.b64encode(n2).decode('utf-8'),
-                      c=base64.b64encode(mac).decode('utf-8'),
-                      d=base64.b64encode(ya).decode('utf-8'),
-                      e=base64.b64encode(m2hmac).decode('utf-8'))
+        m2 = dict(a=base64.b64encode(n1).decode('utf-8'),
+                  b=base64.b64encode(n2).decode('utf-8'),
+                  c=base64.b64encode(mac).decode('utf-8'),
+                  d=base64.b64encode(ya).decode('utf-8'),
+                  e=base64.b64encode(m2hmac).decode('utf-8'))
 
-            print("Encoding nonce...")
-            r = requests.post(register_hash_url, json=m2)
-            print(r)
+        print("Encoding nonce...")
+        r = requests.post(register_hash_url, json=m2)
+        print(r)
 
-            m3 = r.json()
+        m3 = r.json()
 
-            if(base64.b64decode(m3.get('a', '')) != n2):
-                raise AssertionError("Nonce N2 doesn't match")
+        if(base64.b64decode(m3.get('a', '')) != n2):
+            raise AssertionError("Nonce N2 doesn't match")
 
-            eHash = base64.b64decode(m3['b'])
-            m3hmac = base64.b64decode(m3['e'])
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(n1 + n2 + mac + ya + m2hmac + n2 + eHash)
-            if m3hmac != hmac.digest():
-                raise AssertionError("M3 HMAC doesn't match")
+        eHash = base64.b64decode(m3['b'])
+        m3hmac = base64.b64decode(m3['e'])
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(n1 + n2 + mac + ya + m2hmac + n2 + eHash)
+        if m3hmac != hmac.digest():
+            raise AssertionError("M3 HMAC doesn't match")
 
-            pin = (yield)
+        pin = (yield)
 
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(pin.encode())
-            psk = hmac.digest()
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(pin.encode())
+        psk = hmac.digest()
 
-            rs = os.urandom(16)  # random nonce
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(rs + psk + yb + ya)
-            rHash = hmac.digest()
+        rs = os.urandom(16)  # random nonce
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(rs + psk + yb + ya)
+        rHash = hmac.digest()
 
-            wrappedRs = wrap(rs, authKey, keyWrapKey)
+        wrappedRs = wrap(rs, authKey, keyWrapKey)
 
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(n2 + eHash + m3hmac + n1 + rHash + wrappedRs)
-            m4hmac = hmac.digest()
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(n2 + eHash + m3hmac + n1 + rHash + wrappedRs)
+        m4hmac = hmac.digest()
 
-            m4 = dict(a=base64.b64encode(n1).decode('utf-8'),
-                      b=base64.b64encode(rHash).decode('utf-8'),
-                      d=base64.b64encode(wrappedRs).decode('utf-8'),
-                      e=base64.b64encode(m4hmac).decode('utf-8'))
+        m4 = dict(a=base64.b64encode(n1).decode('utf-8'),
+                  b=base64.b64encode(rHash).decode('utf-8'),
+                  d=base64.b64encode(wrappedRs).decode('utf-8'),
+                  e=base64.b64encode(m4hmac).decode('utf-8'))
 
-            print("Getting certificate from device CA...")
-            r = requests.post(register_ca_url, json=m4)
-            print(r)
+        print("Getting certificate from device CA...")
+        r = requests.post(register_ca_url, json=m4)
+        print(r)
 
-            m5 = r.json()
+        m5 = r.json()
 
-            if(base64.b64decode(m5.get('a', '')) != n2):
-                raise AssertionError("Nonce N2 doesn't match")
+        if(base64.b64decode(m5.get('a', '')) != n2):
+            raise AssertionError("Nonce N2 doesn't match")
 
-            wrappedEsCert = base64.b64decode(m5['d'])
-            m5hmac = base64.b64decode(m5['e'])
+        wrappedEsCert = base64.b64decode(m5['d'])
+        m5hmac = base64.b64decode(m5['e'])
 
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(n1 + rHash + wrappedRs + m4hmac + n2 + wrappedEsCert)
-            if hmac.digest() != m5hmac:
-                raise AssertionError("HMAC doesn't match!")
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(n1 + rHash + wrappedRs + m4hmac + n2 + wrappedEsCert)
+        if hmac.digest() != m5hmac:
+            raise AssertionError("HMAC doesn't match!")
 
-            esCert = unwrap(wrappedEsCert, authKey, keyWrapKey)
-            es = esCert[:16]
-            cert = esCert[16:]
+        esCert = unwrap(wrappedEsCert, authKey, keyWrapKey)
+        es = esCert[:16]
+        cert = esCert[16:]
 
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(es + psk + yb + ya)
-            if hmac.digest() != eHash:
-                raise AssertionError("eHash does not match!")
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(es + psk + yb + ya)
+        if hmac.digest() != eHash:
+            raise AssertionError("eHash does not match!")
 
-            # print("Certificate: ")
-            # print(cert)
+        # print("Certificate: ")
+        # print(cert)
 
-            print("Generating RSA2048 keys")
-            new_key = RSA.generate(2048, e=65537)
+        print("Generating RSA2048 keys")
+        new_key = RSA.generate(2048, e=65537)
 
-            # with open("key.pem", 'wb') as f:
-            #    f.write(new_key.exportKey("PEM"))
+        # with open("key.pem", 'wb') as f:
+        #    f.write(new_key.exportKey("PEM"))
 
-            keyPubC = new_key.publickey().exportKey("PEM")
+        keyPubC = new_key.publickey().exportKey("PEM")
 
-            selfDeviceId = str(uuid.uuid4())
-            print("Device ID: " + selfDeviceId)
-            selfDeviceId = selfDeviceId.encode()
+        selfDeviceId = str(uuid.uuid4())
+        print("Device ID: " + selfDeviceId)
+        selfDeviceId = selfDeviceId.encode()
 
-            # with open("client_id.txt", 'wb') as f:
-            #    f.write(selfDeviceId)
+        # with open("client_id.txt", 'wb') as f:
+        #    f.write(selfDeviceId)
 
-            wrappedDIDKPUBC = wrap(selfDeviceId + keyPubC, authKey, keyWrapKey)
+        wrappedDIDKPUBC = wrap(selfDeviceId + keyPubC, authKey, keyWrapKey)
 
-            hmac = HMAC(authKey, digestmod=SHA256)
-            hmac.update(n2 + wrappedEsCert + m5hmac + n1 + wrappedDIDKPUBC)
-            m6hmac = hmac.digest()
+        hmac = HMAC(authKey, digestmod=SHA256)
+        hmac.update(n2 + wrappedEsCert + m5hmac + n1 + wrappedDIDKPUBC)
+        m6hmac = hmac.digest()
 
-            m6 = dict(a=base64.b64encode(n1).decode('utf-8'),
-                      d=base64.b64encode(wrappedDIDKPUBC).decode('utf-8'),
-                      e=base64.b64encode(m6hmac).decode('utf-8'))
+        m6 = dict(a=base64.b64encode(n1).decode('utf-8'),
+                  d=base64.b64encode(wrappedDIDKPUBC).decode('utf-8'),
+                  e=base64.b64encode(m6hmac).decode('utf-8'))
 
-            print("Registering device...")
-            r = requests.post(register_url, json=m6, verify=False)
-            print(r)
+        print("Registering device...")
+        r = requests.post(register_url, json=m6, verify=False)
+        print(r)
 
-            print("Cleaning up...")
-            r = requests.put(register_cleanup_url, verify=False)
-            print(r)
+        print("Cleaning up...")
+        r = requests.put(register_cleanup_url, verify=False)
+        print(r)
 
-            return (cert.decode('utf-8'),
-                    new_key.exportKey("PEM").decode('utf-8'),
-                    selfDeviceId.decode('utf-8'))
+        return (cert.decode('utf-8'),
+                new_key.exportKey("PEM").decode('utf-8'),
+                selfDeviceId.decode('utf-8'))
 
     def authenticate(self, client_id, key):
         sig_maker = httpsig.Signer(secret=key, algorithm='rsa-sha256')
