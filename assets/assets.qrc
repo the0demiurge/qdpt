@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="main">
+    <file>export.png</file>
+    <file>files.png</file>
+    <file>file_tree.png</file>
+    <file>gear.png</file>
+    <file>icon.png</file>
+    <file>import.png</file>
+    <file>screenshot.png</file>
+    <file>search.png</file>
+    <file>sync.png</file>
+    <file>trash.png</file>
+  </qresource>
+  <qresource prefix="folder operation">
+    <file>folder.png</file>
+    <file>folder_add.png</file>
+    <file>folder_remove.png</file>
+    <file>folder_sync.png</file>
+  </qresource>
+</RCC>

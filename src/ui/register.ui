@@ -20,8 +20,8 @@
    <string>Manual Add</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../assets/icon.png</normaloff>../../assets/icon.png</iconset>
+   <iconset resource="../../assets/assets.qrc">
+    <normaloff>:/main/icon.png</normaloff>:/main/icon.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="1" column="0" colspan="5">
@@ -208,7 +208,9 @@
   <tabstop>helpButton</tabstop>
   <tabstop>closeButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../../assets/assets.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>closeButton</sender>

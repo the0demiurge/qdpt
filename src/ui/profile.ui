@@ -14,8 +14,14 @@
    <string>Switch Digital Paper</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../assets/icon.png</normaloff>../../assets/icon.png</iconset>
+   <iconset resource="../../assets/assets.qrc">
+    <normaloff>:/main/icon.png</normaloff>:/main/icon.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>240</width>
+    <height>240</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -91,6 +97,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../assets/assets.qrc"/>
+ </resources>
  <connections/>
 </ui>

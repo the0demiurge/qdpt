@@ -14,15 +14,21 @@
    <string>Qt-Digital Paper App</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../assets/icon.png</normaloff>../../assets/icon.png</iconset>
+   <iconset resource="../../assets/assets.qrc">
+    <normaloff>:/main/icon.png</normaloff>:/main/icon.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>240</width>
+    <height>240</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="7">
      <widget class="QPushButton" name="pushButton_5">
       <property name="text">
-       <string>？Help</string>
+       <string>? Help</string>
       </property>
      </widget>
     </item>
@@ -45,8 +51,8 @@
        <string>ScreenShot</string>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../../assets/screenshot.png</normaloff>../../assets/screenshot.png</iconset>
+       <iconset resource="../../assets/assets.qrc">
+        <normaloff>:/main/screenshot.png</normaloff>:/main/screenshot.png</iconset>
       </property>
      </widget>
     </item>
@@ -56,8 +62,8 @@
        <string>Sync</string>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../../assets/sync.png</normaloff>../../assets/sync.png</iconset>
+       <iconset resource="../../assets/assets.qrc">
+        <normaloff>:/main/sync.png</normaloff>:/main/sync.png</iconset>
       </property>
      </widget>
     </item>
@@ -81,8 +87,8 @@
        <string>Settings</string>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../../assets/gear.png</normaloff>../../assets/gear.png</iconset>
+       <iconset resource="../../assets/assets.qrc">
+        <normaloff>:/main/gear.png</normaloff>:/main/gear.png</iconset>
       </property>
      </widget>
     </item>
@@ -92,20 +98,20 @@
        <string>Import</string>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>../../assets/import.png</normaloff>../../assets/import.png</iconset>
+       <iconset resource="../../assets/assets.qrc">
+        <normaloff>:/main/import.png</normaloff>:/main/import.png</iconset>
       </property>
      </widget>
     </item>
     <item row="1" column="0" colspan="8">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="icon">
-        <iconset>
-         <normaloff>../../assets/folder.png</normaloff>../../assets/folder.png</iconset>
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/folder operation/folder.png</normaloff>:/folder operation/folder.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Folder</string>
@@ -134,8 +140,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/folder_add.png</normaloff>../../assets/folder_add.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/folder operation/folder_add.png</normaloff>:/folder operation/folder_add.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -154,8 +160,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/export.png</normaloff>../../assets/export.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/main/export.png</normaloff>:/main/export.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -174,8 +180,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/trash.png</normaloff>../../assets/trash.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/main/trash.png</normaloff>:/main/trash.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -194,8 +200,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/folder_sync.png</normaloff>../../assets/folder_sync.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/folder operation/folder_sync.png</normaloff>:/folder operation/folder_sync.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -222,8 +228,8 @@
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="icon">
-        <iconset>
-         <normaloff>../../assets/file_tree.png</normaloff>../../assets/file_tree.png</iconset>
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/main/file_tree.png</normaloff>:/main/file_tree.png</iconset>
        </attribute>
        <attribute name="title">
         <string>File Tree</string>
@@ -254,8 +260,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/folder_add.png</normaloff>../../assets/folder_add.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/folder operation/folder_add.png</normaloff>:/folder operation/folder_add.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -274,8 +280,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/export.png</normaloff>../../assets/export.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/main/export.png</normaloff>:/main/export.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -294,8 +300,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/trash.png</normaloff>../../assets/trash.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/main/trash.png</normaloff>:/main/trash.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -314,8 +320,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/folder_sync.png</normaloff>../../assets/folder_sync.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/folder operation/folder_sync.png</normaloff>:/folder operation/folder_sync.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -329,8 +335,8 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="icon">
-        <iconset>
-         <normaloff>../../assets/files.png</normaloff>../../assets/files.png</iconset>
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/main/files.png</normaloff>:/main/files.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Document List</string>
@@ -365,8 +371,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/export.png</normaloff>../../assets/export.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/main/export.png</normaloff>:/main/export.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -401,8 +407,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/trash.png</normaloff>../../assets/trash.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/main/trash.png</normaloff>:/main/trash.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -416,8 +422,8 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="icon">
-        <iconset>
-         <normaloff>../../assets/search.png</normaloff>../../assets/search.png</iconset>
+        <iconset resource="../../assets/assets.qrc">
+         <normaloff>:/main/search.png</normaloff>:/main/search.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Search</string>
@@ -436,8 +442,8 @@
            <string>Search</string>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../assets/search.png</normaloff>../../assets/search.png</iconset>
+           <iconset resource="../../assets/assets.qrc">
+            <normaloff>:/main/search.png</normaloff>:/main/search.png</iconset>
           </property>
          </widget>
         </item>
@@ -456,12 +462,14 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../assets/assets.qrc"/>
+ </resources>
  <connections/>
 </ui>
