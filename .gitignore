@@ -230,3 +230,6 @@ compile_commands.json
 #!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
 
 # End of https://www.gitignore.io/api/vscode
+
+ui_*.py
+*_rc.py
