@@ -3,7 +3,7 @@ from pyqdpt.models.profile_model import ProfileTableModel
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QStringListModel, Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QListView, QAbstractItemView, QInputDialog, QLineEdit, QMessageBox, QGridLayout, QPushButton, QTreeView
+from PyQt5.QtWidgets import QApplication, QWidget, QListView, QAbstractItemView, QInputDialog, QLineEdit, QMessageBox, QGridLayout, QPushButton, QTreeView, QTableView
 import sys
 
 
