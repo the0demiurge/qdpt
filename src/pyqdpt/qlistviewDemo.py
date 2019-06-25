@@ -1,5 +1,5 @@
 from pyqdpt import utils
-from pyqdpt.models.profile_model import ProfileModel, ProfileTableModel
+from pyqdpt.models.profile_model import ProfileTableModel
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QStringListModel, Qt
@@ -8,7 +8,6 @@ import sys
 
 
 k = utils.keys.load_keys()
-pm = ProfileModel(k)
 
 # ['QAbstractItemModel',
 #  'QAbstractListModel',
