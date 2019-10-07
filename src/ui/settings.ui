@@ -232,7 +232,7 @@
           <item row="1" column="2">
            <widget class="QPushButton" name="pushButton_5">
             <property name="text">
-             <string>Rename</string>
+             <string>Modify</string>
             </property>
            </widget>
           </item>

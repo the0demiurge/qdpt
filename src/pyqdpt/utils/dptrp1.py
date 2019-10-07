@@ -40,6 +40,8 @@ import functools
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+# requests.get(dpt.base_url+'/documents2', verify='/home/charles/.config/qdpt/devices/5000755/cert', cookies=dpt.cookies).json()
+
 
 class DigitalPaper():
     def __init__(self, addr=None):

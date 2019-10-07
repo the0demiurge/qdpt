@@ -44,8 +44,9 @@ def get_iface(kern_module=['cdc_ether', 'rndis_host']):
             if len(line) > 0 and mod == line[0]:
                 kern_log.append(line)
                 continue
-    iface = kern_log[0][2].rstrip(':')
-    return iface
+    if len(kern_log) > 0:
+        iface = kern_log[0][2].rstrip(':')
+        return iface
 
 
 def main():
